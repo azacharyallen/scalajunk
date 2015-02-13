@@ -9,6 +9,11 @@ import util.Properties
 import java.net.URI
 import java.sql.Connection
 import java.sql.DriverManager
+import javax.measure.unit.SI.KILOGRAM
+import javax.measure.quantity.Mass
+import org.jscience.physics.model.RelativisticModel
+import org.jscience.physics.amount.Amount
+
 
 object Server {
   def main(args: Array[String]) {
@@ -31,8 +36,11 @@ class Hello extends Service[HttpRequest, HttpResponse] {
 
   def showHome(request: HttpRequest): Future[HttpResponse] = {
     val response = Response()
-    response.setStatusCode(200)
-    response.setContentString("Hello from Scala!")
+
+    RelativisticModel.select()
+    val m = Amount.valueOf("12 GeV").to(KILOGRAM)
+    response.setContentString("E=mc^2: 12 GeV = " + m)
+
     Future(response)
   }
 
