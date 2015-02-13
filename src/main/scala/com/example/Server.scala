@@ -13,6 +13,7 @@ import javax.measure.unit.SI.KILOGRAM
 import javax.measure.quantity.Mass
 import org.jscience.physics.model.RelativisticModel
 import org.jscience.physics.amount.Amount
+import java.nio.charset.Charset
 
 
 object Server {
@@ -38,8 +39,10 @@ class Hello extends Service[HttpRequest, HttpResponse] {
 
   def processGithubWebhook(request: HttpRequest): Future[HttpResponse] = {
     var response = Response()
+    var content = request.getContent.toString("UTF-8")
     println(request.getProtocolVersion)
     println(request.getContent)
+    println(content)
     response.setContentString("#YOLO")
     response.setStatusCode(200)
     Future(response)
