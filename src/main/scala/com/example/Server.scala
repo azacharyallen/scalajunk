@@ -29,9 +29,27 @@ class Hello extends Service[HttpRequest, HttpResponse] {
   def apply(request: HttpRequest): Future[HttpResponse] = {
     if (request.getUri.endsWith("/db")) {
       showDatabase(request);
-    } else {
+    } else if (request.getUri.endsWith("/git")) {
+      processGithubWebhook(request);
+    }else {
       showHome(request);
     }
+  }
+
+  def processGithubWebhook(request: HttpRequest): Future[HttpResponse] = {
+    var response = Response()
+    println(request.getProtocolVersion)
+    println(request.getContent)
+    response.setContentString("#YOLO")
+    response.setStatusCode(200)
+    Future(response)
+  }
+
+  def callAndResponse(request: HttpRequest): Future[HttpResponse] = {
+    var response = Response()
+    response.setContent(request.getContent)
+    response.setStatusCode(200)
+    Future(response)
   }
 
   def showHome(request: HttpRequest): Future[HttpResponse] = {
