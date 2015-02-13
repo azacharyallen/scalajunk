@@ -9,10 +9,6 @@ import util.Properties
 import java.net.URI
 import java.sql.Connection
 import java.sql.DriverManager
-import javax.measure.unit.SI.KILOGRAM
-import javax.measure.quantity.Mass
-import org.jscience.physics.model.RelativisticModel
-import org.jscience.physics.amount.Amount
 import java.nio.charset.Charset
 
 
@@ -50,11 +46,8 @@ class Hello extends Service[HttpRequest, HttpResponse] {
 
   def showHome(request: HttpRequest): Future[HttpResponse] = {
     val response = Response()
-
-    RelativisticModel.select()
-    val m = Amount.valueOf("12 GeV").to(KILOGRAM)
-    response.setContentString("E=mc^2: 12 GeV = " + m)
-
+    response.setStatusCode(200)
+    response.setContentString("shhh, no tears. only force pushing.")
     Future(response)
   }
 
