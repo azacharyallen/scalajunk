@@ -48,13 +48,6 @@ class Hello extends Service[HttpRequest, HttpResponse] {
     Future(response)
   }
 
-  def callAndResponse(request: HttpRequest): Future[HttpResponse] = {
-    var response = Response()
-    response.setContent(request.getContent)
-    response.setStatusCode(200)
-    Future(response)
-  }
-
   def showHome(request: HttpRequest): Future[HttpResponse] = {
     val response = Response()
 
